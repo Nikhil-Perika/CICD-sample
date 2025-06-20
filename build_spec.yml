@@ -1,0 +1,26 @@
+version: 0.2
+
+phases:
+  install:
+    # Commands to install dependencies (if any, not strictly needed for a static HTML)
+    # This phase can be skipped if no installations are needed.
+    # commands:
+    #   - echo "No install commands needed for static website"
+  pre_build:
+    # Commands to execute before the build phase
+    commands:
+      - echo "Pre-build phase - Nothing to do here"
+  build:
+    # Commands to execute during the build phase
+    commands:
+      - echo "Build phase - Copying website files to S3 bucket..."
+      - aws s3 sync . s3://$S3_BUCKET_NAME --delete --acl public-read
+  post_build:
+    # Commands to execute after the build phase
+    commands:
+      - echo "Post-build phase - Deployment complete!"
+
+artifacts:
+  # Files to be packaged by CodeBuild (not needed for direct S3 sync as done above)
+  files:
+    - '**/*' # This line ensures that even if you change `aws s3 sync` later, artifacts are included
