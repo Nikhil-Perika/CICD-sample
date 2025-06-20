@@ -13,7 +13,7 @@ phases:
       - git clone https://github.com/your-username/your-repo-name.git
       - cd your-repo-name
       - echo Uploading index.html to S3...
-      - aws s3 cp index.html s3://your-target-bucket-name/index.html --acl public-read
+      - aws s3 cp index.html s3://my-static-webpage-minipro-202506201355/index.html --acl public-read
 
 artifacts:
   files:
