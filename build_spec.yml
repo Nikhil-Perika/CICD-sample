@@ -2,25 +2,19 @@ version: 0.2
 
 phases:
   install:
-    # Commands to install dependencies (if any, not strictly needed for a static HTML)
-    # This phase can be skipped if no installations are needed.
-    # commands:
-    #   - echo "No install commands needed for static website"
-  pre_build:
-    # Commands to execute before the build phase
+    runtime-versions:
+      python: 3.8
     commands:
-      - echo "Pre-build phase - Nothing to do here"
+      - echo Installing dependencies...
+      - pip install awscli
   build:
-    # Commands to execute during the build phase
     commands:
-      - echo "Build phase - Copying website files to S3 bucket..."
-      - aws s3 sync . s3://$S3_BUCKET_NAME --delete --acl public-read
-  post_build:
-    # Commands to execute after the build phase
-    commands:
-      - echo "Post-build phase - Deployment complete!"
+      - echo Cloning GitHub repository...
+      - git clone https://github.com/your-username/your-repo-name.git
+      - cd your-repo-name
+      - echo Uploading index.html to S3...
+      - aws s3 cp index.html s3://your-target-bucket-name/index.html --acl public-read
 
 artifacts:
-  # Files to be packaged by CodeBuild (not needed for direct S3 sync as done above)
   files:
-    - '**/*' # This line ensures that even if you change `aws s3 sync` later, artifacts are included
+    - index.html
