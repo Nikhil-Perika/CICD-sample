@@ -1,11 +1,10 @@
 provider "aws" {
-  region = "ap-south-1" # Or your desired AWS region
+  region = "ap-south-1" 
 }
 
 resource "aws_s3_bucket" "static_website_bucket" {
-  bucket = "nikhil-bucket-unique-name" # Replace with a unique bucket name
-  # acl = "public-read" # Keep this commented out or removed as per previous fix
-
+  bucket = "nikhil-bucket-unique-name" 
+  # acl = "public-read" 
   website {
     index_document = "index.html"
   }
